@@ -1,0 +1,24 @@
+{
+  "name": "acme-sales",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": " PORT=3000 nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "bootstrap": "^3.3.7",
+    "express": "^4.14.0",
+    "method-override": "^2.3.6",
+    "pg": "^6.1.0",
+    "sequelize": "^3.24.1",
+    "swig": "^1.4.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.10.2"
+  }
+}
