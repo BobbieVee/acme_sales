@@ -5,10 +5,11 @@ var swig = require('swig');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override')
 var path = require('path');
-// var models = require('./models');
+var models = require('./models');
 
 
 app.use(express.static(__dirname + '/node_modules'));
+app.use('/public', express.static(__dirname + '/public'))
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
@@ -25,7 +26,30 @@ app.get('/', function(req,res){
 	res.render('index', {title: 'ACME Sales'})
 });
 
-app.listen(3000, function(){
-	console.log('Hombre, server is Listening on port 3000!')
+// var forceOrNot = 'force: true';
+var forceOrNot  = '';
+
+models.Region.sync({forceOrNot })
+.then(function(){
+	models.SalesPerson.sync({forceOrNot })
 })
+.then(function(){
+	models.SalesPersonRegion.sync({forceOrNot })
+})
+.then(function(){
+	app.listen(3000, function(){
+		console.log('Hombre, server is Listening on port 3000!')
+	});
+	
+}) 
+.catch(console.error);
+
+
+// models.Seed();
+
+
+
+
+
+
 

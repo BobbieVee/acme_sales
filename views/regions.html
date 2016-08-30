@@ -1,5 +1,24 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+ 	<div class = 'panel panel-default' style="list-style: none">
+		{% for region in regions %}
+	
+			<div class = 'panel-heading'>
+				{{region.zip_code}}
+				<button type='button' class = 'btn btn-danger'> Delete</button>
+			</div>
+			<div class = 'panel-heading'> 
+				{% for salesPerson in salesPeople %}
+					<div class = 'panel-body'> 
+						{{salesPerson.name}}
+						<button type='button' class = 'btn btn-primary'> Add</button>
+					</div>	
+				{% endfor %}
+			</div>
+
+
+		{% endfor %}
+	</div>
 
 {% endblock%}
