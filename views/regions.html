@@ -11,7 +11,7 @@
 			<div class = 'panel-heading'> 
 				{% for salesPerson in salesPeople %}
 					<div class = 'panel-body'> 
-						{{salesPerson.name}}
+						{{salesPerson.name}} {{region.hasSalesPerson(salesPerson.id) }}
 						<button type='button' class = 'btn btn-primary'> Add</button>
 					</div>	
 				{% endfor %}

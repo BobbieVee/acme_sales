@@ -5,15 +5,24 @@ var models = require('../models');
 
 router.get('/', function(req,res, next){
 	var salesPeople, regions;
-	models.SalesPerson.findAll()
+	models.SalesPerson.findAll({ 
+		include: [  {
+          model: models.SalesPersonRegion,
+          include: [ models.Region ]
+        } ]  })
 	.then(function(results){
 		salesPeople = results;
 		return models.Region.findAll();
 	})
+	
 	.then(function(results){
 		regions = results;
-		res.render('salespeople', {title: 'ACME: Sales People', salesPeople: salesPeople, regions: regions});
+		console.log('salesPeople = ', salesPeople); 
+		res.render('salespeople', {title:'ACME: Sales People', salesPeople: salesPeople, regions: regions});
+		
 	})
+	
+
 	.catch(next);
 
 	

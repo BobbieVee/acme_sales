@@ -29,13 +29,14 @@ app.get('/', function(req,res){
 // var forceOrNot = 'force: true';
 var forceOrNot  = '';
 
-models.Region.sync({forceOrNot })
-.then(function(){
-	models.SalesPerson.sync({forceOrNot })
-})
-.then(function(){
-	models.SalesPersonRegion.sync({forceOrNot })
-})
+// models.Region.sync({forceOrNot })
+// .then(function(){
+// 	models.SalesPerson.sync({forceOrNot })
+// })
+// .then(function(){
+// 	models.SalesPersonRegion.sync({forceOrNot })
+// })
+models.db.sync({forceOrNot})
 .then(function(){
 	app.listen(3000, function(){
 		console.log('Hombre, server is Listening on port 3000!')
@@ -44,8 +45,7 @@ models.Region.sync({forceOrNot })
 }) 
 .catch(console.error);
 
-
-// models.Seed();
+models.Seed();
 
 
 
