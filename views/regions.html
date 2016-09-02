@@ -1,24 +1,37 @@
 {% extends 'layout.html' %}
 
 {% block content %}
- 	<div class = 'panel panel-default' style="list-style: none">
+	<div class = 'panel panel-default' style="list-style: none">
 		{% for region in regions %}
-	
+
 			<div class = 'panel-heading'>
-				{{region.zip_code}}
-				<button type='button' class = 'btn btn-danger'> Delete</button>
+			 	{{region.zip_code}} 
+			 		<button type='button' class = 'btn btn-danger'> Delete</button>
 			</div>
-			<div class = 'panel-heading'> 
+
+			<div class = 'panel-heading'>
 				{% for salesPerson in salesPeople %}
-					<div class = 'panel-body'> 
-						{{salesPerson.name}} {{region.hasSalesPerson(salesPerson.id) }}
-						<button type='button' class = 'btn btn-primary'> Add</button>
+					<div class = 'panel-body'>
+						<ul>
+							{% if region.hasSalesPerson(salesPerson.id)  %} 
+								<li class = "list-group-item list-group-item-success">
+									{{salesPerson.name}} 
+									<button type='button' class = 'btn btn-warning'> Remove</button>
+								</li> 
+							{%endif%}
+
+							{% if !region.hasSalesPerson(salesPerson.id)  %}
+								<li class = "list-group-item">	
+								 	{{salesPerson.name}} 
+									<button type='button' class = 'btn btn-success'> Add</button>
+								</li>	
+							{%endif%}
+						</ul>
 					</div>	
 				{% endfor %}
+						
 			</div>
-
-
 		{% endfor %}
-	</div>
+	</div>	
 
 {% endblock%}

@@ -71,7 +71,7 @@ var Seed = function(){
 }
 
 var addSalesPerson2Region = function(salespersonId, regionId) {
-	SalesPersonRegion.findOrCreate({where: {salespersonId: salespersonId, regionId: regionId } })
+	return SalesPersonRegion.findOrCreate({where: {salespersonId: salespersonId, regionId: regionId } })
 }
 
 

@@ -3,17 +3,37 @@
 {% block content %}
  	<div class = 'panel panel-default' style="list-style: none">
 		{% for salesPerson in salesPeople %}
+			
 			<div class = 'panel-heading'>
-				{{salesPerson.name}} {{salesPerson.id}} 
+				{{salesPerson.name}} 
 				<button type='button' class = 'btn btn-danger'> Delete</button>
 			</div>
 			
-			<div class = 'panel-heading'> 
-				{% for region in regions %}
-				<div class = 'panel-body'> 
-					{{region.zip_code}} {{region.id}} {{salesPerson.hasRegion(region.id) }}
-					<button type='button' class = 'btn btn-primary'> Add</button>
-				</div>	
+			<div class = 'panel-heading'>				{% for region in regions %}
+					<div class = 'panel-body'>
+						<ul>
+							{% if salesPerson.hasRegion(region.id)  %} 
+								<li class = "list-group-item list-group-item-success">
+								{{region.zip_code}} 
+									<button type='button' class = 'btn btn-warning'> Remove</button>
+								</li> 
+							{%endif%}
+
+							{% if !salesPerson.hasRegion(region.id)  %}
+								<li class = "list-group-item">	
+							 	{{region.zip_code}} 
+							 	<form action='/salespeople/{{salesPerson.id}}/{{region.id}}' method = "POST">
+							 		<button type='submit' class = 'btn btn-success'> Add</button>
+							 	</form>
+									
+								</li>	
+
+								
+
+
+							{%endif%}
+						</ul>
+					</div>	
 				{% endfor %}
 				
 			</div>

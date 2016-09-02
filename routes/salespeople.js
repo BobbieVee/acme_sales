@@ -28,6 +28,16 @@ router.get('/', function(req,res, next){
 	
 });
 
+router.post('/:salespersonid/:regionid', function(req, res, next){
+	console.log('salespersonid and regionid =', req.params.salespersonid , req.params.regionid)
+	models.addSalesPerson2Region(req.params.salespersonid, req.params.regionid)
+	.then(function(){
+		res.redirect('/salespeople/');
+	})
+	.catch(next);
+})
+	
+
 module.exports = router;
 
 

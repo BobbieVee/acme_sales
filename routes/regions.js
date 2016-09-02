@@ -19,6 +19,7 @@ router.get('/', function(req,res, next){
 
 	.then(function(results){
 		regions = results;
+		console.log('regions = ', regions)
 		res.render('regions', {title: 'ACME: Regions', salesPeople: salesPeople, regions: regions});
 	})
 	.catch(next);
