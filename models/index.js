@@ -74,6 +74,20 @@ var addSalesPerson2Region = function(salespersonId, regionId) {
 	return SalesPersonRegion.findOrCreate({where: {salespersonId: salespersonId, regionId: regionId } })
 }
 
+var removeSalesPersonFromRegion = function(salespersonId, regionId){
+	if (regionId === 0){
+		return SalesPersonRegion.destroy({where: {
+		salespersonId: salespersonId}})
+	}
+	if(salespersonId === 0){
+		return SalesPersonRegion.destroy({where: {
+		regionId: regionId}})
+	}
+	return SalesPersonRegion.destroy({where: {
+		salespersonId: salespersonId, regionId: regionId
+	}});
+}
+
 
 module.exports = {
 	SalesPerson: SalesPerson,
@@ -81,5 +95,6 @@ module.exports = {
 	SalesPersonRegion: SalesPersonRegion, 
 	db: db,
 	Seed: Seed, 
-	addSalesPerson2Region: addSalesPerson2Region
+	addSalesPerson2Region: addSalesPerson2Region,
+	removeSalesPersonFromRegion: removeSalesPersonFromRegion 
 }

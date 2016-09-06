@@ -1,12 +1,31 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+	<div class='container well'>
+		<div class = 'form-group'>
+			<form method = 'POST' action = '/salespeople'>
+				<div  class = 'form-group'>
+					<input class = 'form-control' placeholder="name" name="name">
+				</div>
+				<button type = 'submit' class='btn btn-primary'>
+					Add Sales Person
+				</button>
+			</form>
+		</div>	
+	</div>
+
  	<div class = 'panel panel-default' style="list-style: none">
 		{% for salesPerson in salesPeople %}
+		<a name='{{salesPerson.id}}'>
+			</a>
 			
 			<div class = 'panel-heading'>
 				{{salesPerson.name}} 
-				<button type='button' class = 'btn btn-danger'> Delete</button>
+				<form action = '/salespeople/{{salesPerson.id}}?_method=DELETE' method = 'POST'>
+					<button type='submit' class = 'btn btn-danger'> Delete</button>
+					<br clear = 'all'>
+				</form>
+			
 			</div>
 			
 			<div class = 'panel-heading'>				{% for region in regions %}
@@ -15,22 +34,23 @@
 							{% if salesPerson.hasRegion(region.id)  %} 
 								<li class = "list-group-item list-group-item-success">
 								{{region.zip_code}} 
-									<button type='button' class = 'btn btn-warning'> Remove</button>
+								<form action='/salespeople/{{salesPerson.id}}/{{region.id}}?_method=DELETE' method = 'POST' >
+									<button type='submit' class = 'btn btn-warning'> Remove
+									</button>
+									<br clear = 'all'>
+								</form>
+									
 								</li> 
 							{%endif%}
 
 							{% if !salesPerson.hasRegion(region.id)  %}
 								<li class = "list-group-item">	
 							 	{{region.zip_code}} 
-							 	<form action='/salespeople/{{salesPerson.id}}/{{region.id}}' method = "POST">
-							 		<button type='submit' class = 'btn btn-success'> Add</button>
-							 	</form>
-									
+								 	<form action='/salespeople/{{salesPerson.id}}/{{region.id}}' method = "POST">
+								 		<button type='submit' class = 'btn btn-success'> Add</button>
+								 		<br clear = 'all'>
+								 	</form>
 								</li>	
-
-								
-
-
 							{%endif%}
 						</ul>
 					</div>	

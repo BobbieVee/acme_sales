@@ -1,13 +1,31 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+	<div class = 'container well'>
+		<div class = 'form-group'>
+			<form method ='POST' action = '/regions'>
+				<div class = 'form-group'>
+					<input class = 'form-control' placeholder = 'zipcode'
+					name="zipcode">
+				</div>
+				<button type = 'submit' class = 'btn btn-primary' >
+					Add Zipcode
+				</button>
+			</form>
+		</div>
+	</div>
+
 	<div class = 'panel panel-default' style="list-style: none">
 		{% for region in regions %}
-
+			<a name='{{region.id}}'></a>
 			<div class = 'panel-heading'>
 			 	{{region.zip_code}} 
-			 		<button type='button' class = 'btn btn-danger'> Delete</button>
+			 	<form action= '/regions/{{region.id}}?_method=DELETE' method = 'POST' >
+		 			<button type='submit' class = 'btn btn-danger'> Delete</button>
+		 			<br clear="all">
+			 	</form>
 			</div>
+				
 
 			<div class = 'panel-heading'>
 				{% for salesPerson in salesPeople %}
@@ -16,14 +34,25 @@
 							{% if region.hasSalesPerson(salesPerson.id)  %} 
 								<li class = "list-group-item list-group-item-success">
 									{{salesPerson.name}} 
-									<button type='button' class = 'btn btn-warning'> Remove</button>
+
+
+									<form action='/regions/{{region.id}}/{{salesPerson.id}}?_method=DELETE' method = 'POST' >
+										<button type='submit' class = 'btn btn-warning pull-right '> Remove
+										</button>
+									<br clear="all">
+									</form>
+								
+
 								</li> 
 							{%endif%}
 
 							{% if !region.hasSalesPerson(salesPerson.id)  %}
 								<li class = "list-group-item">	
 								 	{{salesPerson.name}} 
-									<button type='button' class = 'btn btn-success'> Add</button>
+									<form action='/regions/{{salesPerson.id}}/{{region.id}}' method = "POST">
+							 		<button type='submit' class = 'btn btn-success pull-right'> Add</button>
+							 		<br clear="all">
+							 	</form>
 								</li>	
 							{%endif%}
 						</ul>
