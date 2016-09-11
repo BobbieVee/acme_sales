@@ -61,19 +61,23 @@ var Seed = function(){
 	var names = ['Johnny','Paul', 'Jeff', 'Elizabeth', 'Sally'];
 	var zips = ['10530','10531','12345', '45678', '56789'];
 	names.forEach(function(name){
-		SalesPerson.findOrCreate({where: {name: name}} )
+		SalesPerson.findOrCreate({where: {name: name}} );//why findOrCreate?
 	});
 	zips.forEach(function(zip){
-		Region.findOrCreate({where: {zip_code: zip}})
+		Region.findOrCreate({where: {zip_code: zip}});//same here
 	});
 	
 
-}
+};
 
 var addSalesPerson2Region = function(salespersonId, regionId) {
-	return SalesPersonRegion.findOrCreate({where: {salespersonId: salespersonId, regionId: regionId } })
-}
+	return SalesPersonRegion.findOrCreate({where: {salespersonId: salespersonId, regionId: regionId } });
+};
 
+/*
+ * I think I would break this up
+ * or better yet, I just don't think you need it...
+ */
 var removeSalesPersonFromRegion = function(salespersonId, regionId){
 	if (regionId === 0){
 		return SalesPersonRegion.destroy({where: {
@@ -86,15 +90,20 @@ var removeSalesPersonFromRegion = function(salespersonId, regionId){
 	return SalesPersonRegion.destroy({where: {
 		salespersonId: salespersonId, regionId: regionId
 	}});
-}
+};
 
 
 module.exports = {
-	SalesPerson: SalesPerson,
-	Region: Region,
-	SalesPersonRegion: SalesPersonRegion, 
-	db: db,
+  //put your models together
+  models: {
+    SalesPerson: SalesPerson,
+    Region: Region,
+    SalesPersonRegion: SalesPersonRegion, 
+  },
+	//db: db,
 	Seed: Seed, 
+  /*
 	addSalesPerson2Region: addSalesPerson2Region,
 	removeSalesPersonFromRegion: removeSalesPersonFromRegion 
+  */
 }

@@ -1,11 +1,10 @@
-
+//do some deploys on heroku
 var express = require('express');
 var app = express();
 var swig = require('swig');
 var bodyParser = require('body-parser');
-var methodOverride = require('method-override')
-var path = require('path');
-var models = require('./models');
+var methodOverride = require('method-override');
+var models = require('./db').models;
 
 
 app.use(express.static(__dirname + '/node_modules'));
@@ -26,30 +25,4 @@ app.get('/', function(req,res){
 	res.render('index', {title: 'ACME Sales'})
 });
 
-// var forceOrNot = 'force: true';
-var forceOrNot  = '';
-
-// models.Region.sync({forceOrNot })
-// .then(function(){
-// 	models.SalesPerson.sync({forceOrNot })
-// })
-// .then(function(){
-// 	models.SalesPersonRegion.sync({forceOrNot })
-// })
-models.db.sync({forceOrNot})
-.then(function(){
-	app.listen(3000, function(){
-		console.log('Hombre, server is Listening on port 3000!')
-	});
-	
-}) 
-.catch(console.error);
-
-models.Seed();
-
-
-
-
-
-
-
+module.exports = app;
